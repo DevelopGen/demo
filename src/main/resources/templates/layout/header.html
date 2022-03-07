@@ -40,13 +40,13 @@
             <li class="nav-item dropdown pe-3">
 
                 <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                    <span th:text="|${session.loginMember.nickName}|" class="d-none d-md-block dropdown-toggle ps-2">로그인 회원</span>
-                </a><!-- End Profile Iamge Icon -->
+                    <span th:text="|${session.loginMember.nickname}|" class="d-none d-md-block dropdown-toggle ps-2">로그인 회원</span>
+                </a><!-- End Profile Image Icon -->
 
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                     <li class="dropdown-header">
-                        <h6>로그인 회원</h6>
-                        <span>테스트</span>
+                        <h6 th:text="|${session.loginMember.nickname}|">로그인 회원</h6>
+                        <span th:text="|${session.loginMember.role}|">테스트</span>
                     </li>
                     <li>
                         <hr class="dropdown-divider">
@@ -77,10 +77,12 @@
                     </li>
 
                     <li>
-                        <a class="dropdown-item d-flex align-items-center" methods="post" href="/user/logout">
-                            <i class="bi bi-box-arrow-right"></i>
-                            <span>로그아웃</span>
-                        </a>
+                        <form action="/user/logout" method="post">
+                            <button class="dropdown-item d-flex align-items-center" type="submit">
+                                <i class="bi bi-box-arrow-right"></i>
+                                <span>로그아웃</span>
+                            </button>
+                        </form>
                     </li>
 
                 </ul><!-- End Profile Dropdown Items -->

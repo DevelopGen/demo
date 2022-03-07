@@ -1,6 +1,7 @@
 package Bayer.demo.controller;
 
 import Bayer.demo.dao.UserRepository;
+import Bayer.demo.dto.user.UserLoginDto;
 import Bayer.demo.dto.user.UserSaveDto;
 import Bayer.demo.service.UserService;
 import org.junit.jupiter.api.AfterEach;
@@ -66,6 +67,14 @@ class UserControllerTest {
                 .andExpect(model().attributeExists("userLoginDto"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("/login"));
+    }
+
+    @Test
+    @DisplayName("로그인 성공")
+    void loginSuccess() {
+        UserLoginDto userLoginDto = new UserLoginDto();
+        userLoginDto.setLoginId("Gen");
+        userLoginDto.setPassword("1234");
     }
 
 }

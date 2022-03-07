@@ -2,6 +2,7 @@ package Bayer.demo.service;
 
 import Bayer.demo.dao.UserRepository;
 import Bayer.demo.domain.user.User;
+import Bayer.demo.dto.user.UserLoginDto;
 import Bayer.demo.dto.user.UserSaveDto;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
@@ -29,6 +30,7 @@ class UserServiceTest {
 
     @AfterEach
     public void afterEach() {
+        if(userRepository.findByLoginId("test").isEmpty()) return;
         userRepository.deleteById(userRepository.findByLoginId("test").orElseThrow().getId());
     }
 
@@ -123,6 +125,36 @@ class UserServiceTest {
 
         //then
         assertThat(e.getMessage()).isEqualTo("이미 존재하는 이메일입니다.");
+    }
+
+    @Test
+    @DisplayName("로그인 체크")
+    void Login(){
+        //given
+        UserLoginDto userLoginDto = new UserLoginDto();
+        userLoginDto.setLoginId("Gen");
+        userLoginDto.setPassword("1234");
+
+        //when
+        User loginUser = userService.login(userLoginDto.getLoginId(), userLoginDto.getPassword());
+
+        //then
+        assertThat(loginUser.getNickname()).isEqualTo("겐");
+    }
+
+    @Test
+    @DisplayName("로그인 실패")
+    void failLogin(){
+        //given
+        UserLoginDto userLoginDto = new UserLoginDto();
+        userLoginDto.setLoginId("Gen");
+        userLoginDto.setPassword("1");
+
+        //when
+        User loginUser = userService.login(userLoginDto.getLoginId(), userLoginDto.getPassword());
+
+        //then
+        assertThat(loginUser).isNull();
     }
 
 }

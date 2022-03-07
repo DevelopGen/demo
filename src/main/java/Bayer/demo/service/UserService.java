@@ -32,17 +32,17 @@ public class UserService {
                 .orElse(null);
     }
 
-    void validateDuplicateId(String loginId) {
+    private void validateDuplicateId(String loginId) throws IllegalStateException{
         userRepository.findByLoginId(loginId)
                 .ifPresent(m -> {throw new IllegalStateException("이미 존재하는 아이디입니다.");});
     }
 
-    void validateDuplicateNickname(String nickname) {
+    private void validateDuplicateNickname(String nickname) throws IllegalStateException{
         userRepository.findByNickname(nickname)
                 .ifPresent(m -> {throw new IllegalStateException("이미 존재하는 닉네임입니다.");});
     }
 
-    void validateDuplicateEmail(String email) {
+    private void validateDuplicateEmail(String email) throws IllegalStateException{
         userRepository.findByEmail(email)
                 .ifPresent(m -> {throw new IllegalStateException("이미 존재하는 이메일입니다.");});
     }
