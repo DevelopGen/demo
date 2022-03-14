@@ -15,12 +15,13 @@ class UserDtoTest {
         String loginId = "test";
         String nickname = "테스터";
         String password = "test1234";
+        String email = "test@test.com";
 
         //when
         UserSaveDto userSaveDto = UserSaveDto.builder()
                 .loginId(loginId).nickname(nickname)
-                .password(password).email("test@test.com")
-                .role(Role.USER).build();
+                .password(password).email(email)
+                .build();
 
         //then
         assertThat(userSaveDto.getLoginId()).isEqualTo(loginId);

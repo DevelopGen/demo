@@ -47,7 +47,7 @@
                                         <h5 class="card-title text-center pb-0 fs-4">로그인</h5>
                                     </div>
 
-                                    <form class="row g-3 needs-validation" method="post" th:object="${userLoginDto}" novalidate>
+                                    <form action="/user/login" class="row g-3 needs-validation" method="post" th:object="${userLoginDto}" novalidate>
 
                                         <th:block th:if="${#fields.hasGlobalErrors()}" th:each="err : ${#fields.globalErrors()}">
                                             <script>
@@ -56,16 +56,16 @@
                                         </th:block>
 
                                         <div class="col-12">
-                                            <label for="yourUsername" class="form-label">ID</label>
+                                            <label for="loginId" class="form-label">ID</label>
                                             <div class="input-group has-validation">
-                                                <input type="text" name="username" class="form-control" id="yourUsername" th:field="*{loginId}" required>
+                                                <input type="text" name="loginId" class="form-control" id="loginId" th:field="*{loginId}" autofocus required>
                                                 <div class="invalid-feedback">아이디를 입력해주세요!</div>
                                             </div>
                                         </div>
 
                                         <div class="col-12">
-                                            <label for="yourPassword" class="form-label">Password</label>
-                                            <input type="password" name="password" class="form-control" id="yourPassword" th:field="*{password}" required>
+                                            <label for="password" class="form-label">Password</label>
+                                            <input type="password" name="password" class="form-control" id="password" th:field="*{password}" required>
                                             <div class="invalid-feedback">비밀번호를 입력해주세요!</div>
                                         </div>
 

@@ -1,6 +1,6 @@
-package Bayer.demo.service;
+package Bayer.demo.service.user;
 
-import Bayer.demo.dao.UserRepository;
+import Bayer.demo.repository.UserRepository;
 import Bayer.demo.domain.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

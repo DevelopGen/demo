@@ -1,9 +1,9 @@
-package Bayer.demo.controller;
+package Bayer.demo.controller.user;
 
 import Bayer.demo.domain.user.User;
 import Bayer.demo.dto.user.UserLoginDto;
 import Bayer.demo.dto.user.UserSaveDto;
-import Bayer.demo.service.UserService;
+import Bayer.demo.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;

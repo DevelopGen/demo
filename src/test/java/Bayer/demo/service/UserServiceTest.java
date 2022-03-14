@@ -1,9 +1,10 @@
 package Bayer.demo.service;
 
-import Bayer.demo.dao.UserRepository;
+import Bayer.demo.repository.UserRepository;
 import Bayer.demo.domain.user.User;
 import Bayer.demo.dto.user.UserLoginDto;
 import Bayer.demo.dto.user.UserSaveDto;
+import Bayer.demo.service.user.UserService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -131,9 +132,7 @@ class UserServiceTest {
     @DisplayName("로그인 체크")
     void Login(){
         //given
-        UserLoginDto userLoginDto = new UserLoginDto();
-        userLoginDto.setLoginId("Gen");
-        userLoginDto.setPassword("1234");
+        UserLoginDto userLoginDto = UserLoginDto.builder().loginId("Gen").password("1234").build();
 
         //when
         User loginUser = userService.login(userLoginDto.getLoginId(), userLoginDto.getPassword());
@@ -146,9 +145,7 @@ class UserServiceTest {
     @DisplayName("로그인 실패")
     void failLogin(){
         //given
-        UserLoginDto userLoginDto = new UserLoginDto();
-        userLoginDto.setLoginId("Gen");
-        userLoginDto.setPassword("1");
+        UserLoginDto userLoginDto = UserLoginDto.builder().loginId("Gen").password("1").build()
 
         //when
         User loginUser = userService.login(userLoginDto.getLoginId(), userLoginDto.getPassword());

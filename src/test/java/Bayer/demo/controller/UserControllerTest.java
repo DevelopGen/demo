@@ -1,15 +1,14 @@
 package Bayer.demo.controller;
 
-import Bayer.demo.dao.UserRepository;
+import Bayer.demo.controller.user.UserController;
+import Bayer.demo.repository.UserRepository;
 import Bayer.demo.dto.user.UserLoginDto;
 import Bayer.demo.dto.user.UserSaveDto;
-import Bayer.demo.service.UserService;
-import org.junit.jupiter.api.AfterEach;
+import Bayer.demo.service.user.UserService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -46,11 +45,9 @@ class UserControllerTest {
     @DisplayName("회원가입 완료 테스트")
     void insertUser_Test() throws Exception {
         //given
-        UserSaveDto userSaveDto = new UserSaveDto();
-        userSaveDto.setLoginId("test");
-        userSaveDto.setPassword("1234");
-        userSaveDto.setNickname("test");
-        userSaveDto.setEmail("test@test.com");
+        UserSaveDto userSaveDto = UserSaveDto.builder()
+                        .loginId("test").password("1234")
+                        .email("test@test.com").nickname("test").build();
         userService.save(userSaveDto.toEntity());
 
         mvc.perform(post("/join")
@@ -72,9 +69,6 @@ class UserControllerTest {
     @Test
     @DisplayName("로그인 성공")
     void loginSuccess() {
-        UserLoginDto userLoginDto = new UserLoginDto();
-        userLoginDto.setLoginId("Gen");
-        userLoginDto.setPassword("1234");
+        UserLoginDto userLoginDto = UserLoginDto.builder().loginId("Gen").password("1234").build();
     }
-
 }

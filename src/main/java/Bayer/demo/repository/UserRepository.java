@@ -1,4 +1,4 @@
-package Bayer.demo.dao;
+package Bayer.demo.repository;
 
 import Bayer.demo.domain.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;

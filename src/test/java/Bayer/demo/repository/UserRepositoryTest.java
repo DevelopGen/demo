@@ -1,4 +1,4 @@
-package Bayer.demo.dao;
+package Bayer.demo.repository;
 
 import Bayer.demo.domain.user.Role;
 import Bayer.demo.domain.user.User;
@@ -9,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 

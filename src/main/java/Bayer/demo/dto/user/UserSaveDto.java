@@ -10,10 +10,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 @Getter
-@AllArgsConstructor
 @Builder
-@NoArgsConstructor
-@Setter
+@AllArgsConstructor
 public class UserSaveDto {
     @NotBlank
     @NotNull

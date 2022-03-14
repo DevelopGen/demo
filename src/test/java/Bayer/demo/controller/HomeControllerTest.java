@@ -1,5 +1,6 @@
 package Bayer.demo.controller;
 
+import Bayer.demo.controller.main.MainController;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,7 +13,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 @ExtendWith(SpringExtension.class)
-@WebMvcTest(controllers = HomeController.class)
+@WebMvcTest(controllers = MainController.class)
 public class HomeControllerTest {
 
     @Autowired
