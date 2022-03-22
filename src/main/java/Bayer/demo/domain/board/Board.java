@@ -7,6 +7,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Entity(name = "board")
@@ -27,12 +28,12 @@ public class Board {
 
     private int count;
 
+    @OneToMany(mappedBy = "board")
+    private List<Reply> replies;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "USER_ID")
     private User user;
-
-    @OneToMany(mappedBy = "board")
-    private Reply reply;
 
     @Column(nullable = false)
     private String auth;
@@ -45,6 +46,7 @@ public class Board {
 
     public void setCount(int count){this.count = count;}
     public void setAuth(User user){this.auth = user.getNickname();}
+    public void addReply(Reply reply){this.replies.add(reply);}
     public void editTitle(String title){this.title = title;}
     public void editContent(String content){this.content = content;}
 }

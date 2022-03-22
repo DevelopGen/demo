@@ -48,9 +48,6 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Board> boards;
 
-    @OneToMany(mappedBy = "user")
-    private List<Reply> replies;
-
     public void editNickname(String nickname) { this.nickname = nickname; }
     public void editEmail(String email) { this.email = email; }
     public void editPassword(String password) { this.password = password; }

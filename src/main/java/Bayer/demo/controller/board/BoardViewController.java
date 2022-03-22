@@ -1,6 +1,7 @@
 package Bayer.demo.controller.board;
 
 import Bayer.demo.domain.board.Board;
+import Bayer.demo.dto.board.ReplySaveDto;
 import Bayer.demo.service.board.BoardViewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -17,7 +18,7 @@ public class BoardViewController {
     private final BoardViewService boardViewService;
 
     @GetMapping("/notice/{id}")
-    public String noticeView(@PathVariable Long id, Model model){
+    public String noticeView(@PathVariable Long id, Model model, ReplySaveDto replySaveDto){
         Board findNotice = boardViewService.findBoard(id);
         model.addAttribute("notice",findNotice);
         return "/board/notice_view";

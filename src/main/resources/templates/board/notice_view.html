@@ -45,7 +45,7 @@
             <div class="col">
 
                 <div class="card basic">
-                    <div class="card-body" style="height:600px">
+                    <div class="card-body">
                         <h2 class="card-title fs-3 fw-bold" th:text="${notice.title}"> 제목 </h2>
 
                         <div class="d-flex gap-2 justify-content-end mt-2">
@@ -58,8 +58,51 @@
                             <a class="btn btn-outline-dark btn-sm">삭제</a>
                         </div>
 
-                        <div class="pt-2">
+                        <div class="pt-2" style="height:500px;">
                             <span th:text="${notice.content}"> 내용 </span>
+                        </div>
+
+                        <hr>
+                        <label class="text-secondary pb-2">댓글</label>
+                        <form th:action="@{|/board/notice/${notice.id}/reply|}" method="post" th:object="${replySaveDto}" class="needs-validation" novalidate>
+                            <div class="row">
+                                <div class="col-11">
+                                    <textarea class="form-control" style="height: 100px; resize: none;" id="content" th:field="*{content}" required></textarea>
+                                    <div class="invalid-feedback">내용을 입력해주세요!</div>
+                                </div>
+
+                                <div class="col-1">
+                                    <button class="btn btn-outline-secondary" style="height: 100px; width: 100%;" type="submit">등록</button>
+                                </div>
+                            </div>
+                        </form>
+
+                        <div>
+                            <div th:each="reply : ${notice.replies}">
+                                <hr>
+                                <div class="row ps-3 pb-3">
+                                    <div class="col-sm-2">
+                                        <div class="fw-bold" th:text="${reply.auth}">댓글 작성자</div>
+                                    </div>
+
+                                    <div class="col-1 me-auto">
+                                        <th:bolck th:if="${#calendars.format(#calendars.createNow(), 'dd')} == ${#temporals.format(reply.createdDate, 'dd')}">
+                                            <span th:text="${#temporals.format(reply.createdDate, 'HH:mm')}"></span>
+                                        </th:bolck>
+                                        <th:bolck th:unless="${#calendars.format(#calendars.createNow(), 'dd')} == ${#temporals.format(reply.createdDate, 'dd')}">
+                                            <span th:text="${#temporals.format(reply.createdDate, 'MM-dd')}"></span>
+                                        </th:bolck>
+                                    </div>
+
+                                    <div class="col-auto" th:if="${reply.auth == session.loginUser}">
+                                        <a class="text-secondary text-decoration-underline">수정</a> /
+                                        <a th:href="@{|/board/notice/${notice.id}/reply/delete|}" class="text-secondary text-decoration-underline">삭제</a>
+                                    </div>
+                                </div>
+
+                                    <div class="ps-3" th:text="${reply.content}">댓글 내용</div>
+
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -70,5 +113,6 @@
 </main><!--End Main-->
 
 <footer th:insert="/layout/footer.html"></footer>
+<script src="/js/validation.js"></script>
 </body>
 </html>
