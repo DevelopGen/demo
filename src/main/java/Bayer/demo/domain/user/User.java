@@ -1,12 +1,17 @@
 package Bayer.demo.domain.user;
 
+import Bayer.demo.domain.board.Board;
+import Bayer.demo.domain.board.Reply;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Builder
@@ -17,6 +22,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "USER_ID")
     private Long id;
 
     @Column(nullable = false, length = 30, unique = true)
@@ -36,4 +42,16 @@ public class User {
     @Column(nullable = false)
     private Role role;
 
+    @CreatedDate
+    private LocalDateTime createdDate;
+
+    @OneToMany(mappedBy = "user")
+    private List<Board> boards;
+
+    @OneToMany(mappedBy = "user")
+    private List<Reply> replies;
+
+    public void editNickname(String nickname) { this.nickname = nickname; }
+    public void editEmail(String email) { this.email = email; }
+    public void editPassword(String password) { this.password = password; }
 }

@@ -1,10 +1,10 @@
 package Bayer.demo.controller;
 
-import Bayer.demo.controller.user.UserController;
+import Bayer.demo.controller.user.UserSignupController;
 import Bayer.demo.repository.UserRepository;
 import Bayer.demo.dto.user.UserLoginDto;
 import Bayer.demo.dto.user.UserSaveDto;
-import Bayer.demo.service.user.UserService;
+import Bayer.demo.service.user.UserSignupService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,7 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 @ExtendWith(SpringExtension.class)
-@WebMvcTest(UserController.class)
+@WebMvcTest(UserSignupController.class)
 class UserControllerTest {
 
     @Autowired
@@ -29,7 +29,7 @@ class UserControllerTest {
     UserRepository userRepository;
 
     @MockBean
-    UserService userService;
+    UserSignupService userService;
 
     @Test
     @DisplayName("회원가입 페이지 리턴")

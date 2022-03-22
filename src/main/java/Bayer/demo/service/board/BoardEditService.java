@@ -20,14 +20,8 @@ public class BoardEditService {
     }
 
     private Board Modified(Board findBoard, BoardEditDto boardEditDto) {
-        return Board.builder()
-                .id(findBoard.getId()) // <- 유지
-                .count(findBoard.getCount())
-                .user(findBoard.getUser())
-                .createdDate(findBoard.getCreatedDate())
-                .auth(findBoard.getAuth())
-                .title(boardEditDto.getTitle()) // <- 변경
-                .content(boardEditDto.getContent())
-                .build();
+        findBoard.editTitle(boardEditDto.getTitle());
+        findBoard.editContent(boardEditDto.getContent());
+        return findBoard;
     }
 }

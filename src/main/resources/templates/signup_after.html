@@ -35,7 +35,7 @@
                             </a>
                         </div><!-- End Logo -->
 
-                        <th:block th:if="${param.status.toString().equals('good')}">
+                        <th:block th:if="${status.toString().equals('good')}">
                             <div class="card mb-3">
                                 <div class="card-body">
                                     <div class="pt-4 pb-2">
@@ -52,7 +52,25 @@
                             </div>
                         </th:block>
 
-                        <th:block th:unless="${param.status.toString().equals('good')}">
+                        <th:block th:if="${status.toString().equals('pass')}">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <div class="pt-4 pb-2">
+                                        <h1 class="bi text-center bi-check-circle-fill"></h1>
+                                        <h5 class="card-title text-center pb-0 fs-4">비밀번호 변경 완료</h5>
+                                    </div>
+                                    <div class="col-12 mb-2 text-center">
+                                        <label class="form-check-label"> 성공적으로 비밀번호가 변경되었습니다.</label>
+                                        <label class="form-check-label">  다시 로그인 해주세요.</label>
+                                    </div>
+                                    <div class="col-12">
+                                        <a class="btn btn-primary w-100" type="button" href="/user/login">로그인 하기</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </th:block>
+
+                        <th:block th:if="${status == null}">
                             <div class="card mb-3">
                                 <div class="card-body">
                                     <div class="pt-4 pb-2">

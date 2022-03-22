@@ -25,6 +25,13 @@
 </head>
 <body>
 
+<th:block th:if="${editFail != null}">
+    <script>
+        alert('권한이 없습니다.');
+        history.go(-1);
+    </script>
+</th:block>
+
 <header th:insert="/layout/header.html"></header>
 
 <aside th:insert="/layout/sidebar.html"></aside>
@@ -42,18 +49,20 @@
                     <div class="card-body">
                         <h5 class="card-title"></h5>
 
-                        <form method="post" th:object="${boardEditDto}">
+                        <form method="post" class="needs-validation" th:object="${boardEditDto}" novalidate>
                             <div class="row mb-3">
                                 <label for="title" class="col-sm-1 col-form-label">제목</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="title" th:field="*{title}" th:value="*{title}">
+                                    <input type="text" class="form-control" id="title" th:field="*{title}" th:value="*{title}" required>
+                                    <div class="invalid-feedback">제목을 입력해주세요!</div>
                                 </div>
                             </div>
 
                             <div class="row mb-3">
                                 <label for="content" class="col-sm-1 col-form-label">내용</label>
                                 <div class="col-sm-10">
-                                    <textarea class="form-control" style="height: 300px; width:100%; resize: none;" id="content" th:field="*{content}" th:value="*{content}"></textarea>
+                                    <textarea class="form-control" style="height: 300px; width:100%; resize: none;" id="content" th:field="*{content}" th:value="*{content}" required></textarea>
+                                    <div class="invalid-feedback">내용을 입력해주세요!</div>
                                 </div>
                             </div>
 
@@ -72,7 +81,7 @@
         </div>
     </section>
 </main><!--End Main-->
-
+<script src="/js/validation.js"></script>
 <footer th:insert="/layout/footer.html"></footer>
 </body>
 </html>

@@ -40,10 +40,10 @@
                     <div class="card-body">
                         <h5 class="card-title">공지사항</h5>
 
-                        <table class="table table-hover">
+                        <table class="table table-hover text-center">
                             <thead>
                             <tr>
-                                <th scope="col">번호</th>
+                                <th scope="col-2">번호</th>
                                 <th scope="col">제목</th>
                                 <th scope="col">작성자</th>
                                 <th scope="col">시간</th>
@@ -51,40 +51,34 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>테스트용 #번</td>
-                                <td>테스터</td>
-                                <td>03-05</td>
-                                <td>0</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>테스트용 #번</td>
-                                <td>테스터</td>
-                                <td>03-05</td>
-                                <td>0</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>테스트용 #번</td>
-                                <td>테스터</td>
-                                <td>03-05</td>
-                                <td>0</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">4</th>
-                                <td>테스트용 #번</td>
-                                <td>테스터</td>
-                                <td>03-05</td>
-                                <td>0</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">5</th>
-                                <td>테스트용 #번</td>
-                                <td>테스터</td>
-                                <td>03-05</td>
-                                <td>0</td>
+                            <th:block th:if="${noticeList.isEmpty()}">
+                                <tr>
+                                    <td colspan="5">등록된 게시물이 없습니다</td>
+                                </tr>
+                            </th:block>
+                            <tr th:each="notice : ${noticeList}">
+                                <th scope="row" >
+                                    <span  th:text="${notice.id}"></span>
+                                </th>
+                                <td>
+                                    <a th:href="@{|/board/notice/${notice.id}|}">
+                                        <span class="text-black" aria-colcount="15" th:text="${notice.title}"></span>
+                                    </a>
+                                </td>
+                                <td>
+                                    <span aria-colcount="6" th:text="${notice.auth}"></span>
+                                </td>
+                                <td>
+                                    <th:bolck th:if="${#calendars.format(#calendars.createNow(), 'dd')} == ${#temporals.format(notice.createdDate, 'dd')}">
+                                        <span aria-colcount="6" th:text="${#temporals.format(notice.createdDate, 'HH:mm')}"></span>
+                                    </th:bolck>
+                                    <th:bolck th:unless="${#calendars.format(#calendars.createNow(), 'dd')} == ${#temporals.format(notice.createdDate, 'dd')}">
+                                        <span aria-colcount="6" th:text="${#temporals.format(notice.createdDate, 'MM-dd')}"></span>
+                                    </th:bolck>
+                                </td>
+                                <td >
+                                    <span class="col-1" th:text="${notice.count}"></span>
+                                </td>
                             </tr>
                             </tbody>
                         </table>

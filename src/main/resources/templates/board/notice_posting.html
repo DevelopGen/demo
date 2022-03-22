@@ -42,18 +42,20 @@
                     <div class="card-body">
                         <h5 class="card-title"></h5>
 
-                        <form method="post" th:object="${boardSaveDto}">
+                        <form method="post" class="needs-validation" th:object="${boardSaveDto}" novalidate>
                             <div class="row mb-3">
                                 <label for="title" class="col-sm-1 col-form-label">제목</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="title" th:field="*{title}">
+                                    <input type="text" class="form-control" id="title" th:field="*{title}" required>
+                                    <div class="invalid-feedback">제목을 입력해주세요!</div>
                                 </div>
                             </div>
 
                             <div class="row mb-3">
                                 <label for="content" class="col-sm-1 col-form-label">내용</label>
                                 <div class="col-sm-10">
-                                <textarea class="form-control" style="height: 300px; width:100%; resize: none;" id="content" th:field="*{content}"></textarea>
+                                    <textarea class="form-control" style="height: 300px; width:100%; resize: none;" id="content" th:field="*{content}" required></textarea>
+                                    <div class="invalid-feedback">내용을 입력해주세요!</div>
                                 </div>
                             </div>
 
@@ -72,7 +74,7 @@
         </div>
     </section>
 </main><!--End Main-->
-
+<script src="/js/validation.js"></script>
 <footer th:insert="/layout/footer.html"></footer>
 </body>
 </html>

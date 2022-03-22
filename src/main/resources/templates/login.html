@@ -24,6 +24,14 @@
 
 </head>
 <body>
+
+<th:block th:if="${session.loginUser != null}">
+    <script>
+        alert("이미 로그인 상태입니다.");
+        history.go(-1);
+    </script>
+</th:block>
+
     <main><!--Login-->
         <div class="container">
 
@@ -49,9 +57,9 @@
 
                                     <form action="/user/login" class="row g-3 needs-validation" method="post" th:object="${userLoginDto}" novalidate>
 
-                                        <th:block th:if="${#fields.hasGlobalErrors()}" th:each="err : ${#fields.globalErrors()}">
+                                        <th:block th:if="${#fields.hasGlobalErrors()}">
                                             <script>
-                                            alert("[[${err}]]");
+                                            alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
                                             </script>
                                         </th:block>
 
@@ -80,7 +88,7 @@
                                         </div>
                                         <div class="col-12">
                                             <p class="small mb-0">계정이 없으신가요? <a href="/user/join">회원가입</a></p>
-                                            <p class="small mb-0">계정을 잊으셨나요? <a href="/user/find">계정 찾기</a></p>
+                                            <p class="small mb-0">계정을 잊으셨나요? <a href="/user/findid">계정 찾기</a></p>
                                         </div>
                                     </form>
 
@@ -96,5 +104,6 @@
             </section>
         </div>
     </main><!-- End main -->
+    <script src="/js/validation.js"></script>
 </body>
 </html>

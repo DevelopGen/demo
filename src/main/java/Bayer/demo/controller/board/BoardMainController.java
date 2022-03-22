@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 public class BoardMainController {
 
-    private final BoardMainService boardService;
+    private final BoardMainService boardMainService;
 
     @GetMapping("/notice")
     public String noticeMain(Model model) {
-        model.addAttribute("noticeList",boardService.findAll());
+        model.addAttribute("noticeList",boardMainService.findAll());
         return "/board/notice";
     }
 

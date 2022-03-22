@@ -4,7 +4,7 @@ import Bayer.demo.repository.UserRepository;
 import Bayer.demo.domain.user.User;
 import Bayer.demo.dto.user.UserLoginDto;
 import Bayer.demo.dto.user.UserSaveDto;
-import Bayer.demo.service.user.UserService;
+import Bayer.demo.service.user.UserSignupService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class UserServiceTest {
 
     @Autowired
-    UserService userService;
+    UserSignupService userService;
 
     @Autowired
     UserRepository userRepository;

@@ -8,6 +8,7 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.time.LocalDateTime;
 
 @Getter
 @Builder
@@ -28,7 +29,7 @@ public class UserSaveDto {
     @NotBlank
     @NotNull
     @Length(min = 6)
-    @Pattern(regexp = "^[a-zA-Z]+[a-zA-Z0-9!@*]*$")
+    @Pattern(regexp = "^[a-zA-Z0-9]+[a-zA-Z0-9!@*]*$")
     private String password;
 
     @NotBlank
@@ -44,6 +45,7 @@ public class UserSaveDto {
                 .nickname(nickname)
                 .password(password)
                 .email(email)
+                .createdDate(LocalDateTime.now())
                 .role(Role.USER).build();
     }
 }

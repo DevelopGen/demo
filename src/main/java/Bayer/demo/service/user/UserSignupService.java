@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
-public class UserService {
+public class UserSignupService {
 
     private final UserRepository userRepository;
 
@@ -32,17 +32,17 @@ public class UserService {
                 .orElse(null);
     }
 
-    private void validateDuplicateId(String loginId) throws IllegalStateException{
+    public void validateDuplicateId(String loginId) {
         userRepository.findByLoginId(loginId)
                 .ifPresent(m -> {throw new IllegalStateException("이미 존재하는 아이디입니다.");});
     }
 
-    private void validateDuplicateNickname(String nickname) throws IllegalStateException{
+    public void validateDuplicateNickname(String nickname) {
         userRepository.findByNickname(nickname)
                 .ifPresent(m -> {throw new IllegalStateException("이미 존재하는 닉네임입니다.");});
     }
 
-    private void validateDuplicateEmail(String email) throws IllegalStateException{
+    public void validateDuplicateEmail(String email) {
         userRepository.findByEmail(email)
                 .ifPresent(m -> {throw new IllegalStateException("이미 존재하는 이메일입니다.");});
     }

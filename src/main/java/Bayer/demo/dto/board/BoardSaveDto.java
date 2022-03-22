@@ -22,19 +22,14 @@ public class BoardSaveDto {
 
     private User user;
 
-    public Board toEntity() {
+    public Board toEntity(User user) {
         return Board.builder()
                 .title(title)
                 .content(content)
                 .count(0)
                 .user(user)
-                .auth(user.getNickname())
                 .createdDate(LocalDateTime.now())
                 .build();
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 }
 
