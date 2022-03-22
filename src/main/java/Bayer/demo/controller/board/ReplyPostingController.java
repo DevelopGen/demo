@@ -19,7 +19,6 @@ public class ReplyPostingController {
 
     @PostMapping("/board/notice/{id}/reply")
     public String noticePosting(@PathVariable Long id, ReplySaveDto replySaveDto, HttpSession session) {
-        log.info(replySaveDto.getContent());
         replyPostingService.save(replySaveDto, id, session.getAttribute("loginUser").toString());
         return "redirect:/board/notice/{id}";
     }

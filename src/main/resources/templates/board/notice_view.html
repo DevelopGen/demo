@@ -80,28 +80,19 @@
                         <div>
                             <div th:each="reply : ${notice.replies}">
                                 <hr>
-                                <div class="row ps-3 pb-3">
-                                    <div class="col-sm-2">
-                                        <div class="fw-bold" th:text="${reply.auth}">댓글 작성자</div>
-                                    </div>
+                                <div class="d-flex bd-highlight mb-3">
+                                    <div class="p-2 bd-highlight fw-bold" th:text="${reply.auth}">댓글 작성자</div>
+                                    <span class="p-2 bd-highlight" th:text="'( ' + ${#temporals.format(reply.createdDate, 'yyyy-MM-dd HH:mm')} + ' )'"></span>
 
-                                    <div class="col-1 me-auto">
-                                        <th:bolck th:if="${#calendars.format(#calendars.createNow(), 'dd')} == ${#temporals.format(reply.createdDate, 'dd')}">
-                                            <span th:text="${#temporals.format(reply.createdDate, 'HH:mm')}"></span>
-                                        </th:bolck>
-                                        <th:bolck th:unless="${#calendars.format(#calendars.createNow(), 'dd')} == ${#temporals.format(reply.createdDate, 'dd')}">
-                                            <span th:text="${#temporals.format(reply.createdDate, 'MM-dd')}"></span>
-                                        </th:bolck>
-                                    </div>
-
-                                    <div class="col-auto" th:if="${reply.auth == session.loginUser}">
-                                        <a class="text-secondary text-decoration-underline">수정</a> /
-                                        <a th:href="@{|/board/notice/${notice.id}/reply/delete|}" class="text-secondary text-decoration-underline">삭제</a>
+                                    <div th:if="${reply.auth == session.loginUser}" class="d-flex ms-auto bd-highlight">
+                                        <button class="me-1 btn btn-outline-dark btn-sm text-secondary" style="height: 31px;">수정</button>
+                                        <form th:action="@{|/board/notice/${notice.id}/${reply.id}/delete|}" method="post">
+                                            <button type="submit" class="btn btn-outline-dark btn-sm text-secondary">삭제</button>
+                                        </form>
                                     </div>
                                 </div>
 
-                                    <div class="ps-3" th:text="${reply.content}">댓글 내용</div>
-
+                                <div class="ps-3" th:text="${reply.content}">댓글 내용</div>
                             </div>
                         </div>
                     </div>

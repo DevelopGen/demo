@@ -63,6 +63,9 @@
                                 <td>
                                     <a th:href="@{|/board/notice/${notice.id}|}">
                                         <span class="text-black" aria-colcount="15" th:text="${notice.title}"></span>
+                                        <th:blcok th:if="${notice.replies.size() >= 1}">
+                                            <span class="fw-bold text-black" th:text=" [ +${notice.replies.size()} + ]"></span>
+                                        </th:blcok>
                                     </a>
                                 </td>
                                 <td>
