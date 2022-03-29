@@ -24,9 +24,7 @@ public class ReplyPostingService {
         User findUser = userRepository.findByNickname(nickname).orElse(null);
         Board findBoard = boardRepository.getById(id);
         Reply reply = replySaveDto.toEntity(findUser,findBoard);
-        findBoard.addReply(reply);
         reply.setAuth(findUser);
-        boardRepository.save(findBoard);
         replyRepository.save(reply);
     }
 }

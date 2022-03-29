@@ -1,7 +1,6 @@
 package Bayer.demo.domain.user;
 
 import Bayer.demo.domain.board.Board;
-import Bayer.demo.domain.board.Reply;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -47,6 +46,9 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Board> boards;
+
+    @OneToOne(mappedBy = "user")
+    private ProfileImg img;
 
     public void editNickname(String nickname) { this.nickname = nickname; }
     public void editEmail(String email) { this.email = email; }

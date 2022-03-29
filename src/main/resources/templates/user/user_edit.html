@@ -49,7 +49,13 @@
                 <div class="card">
                     <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
-                        <img src="/img/profile-img.jpg" alt="Profile" class="rounded-circle mb-3">
+                        <div th:if="${userEditDto.img == null}">
+                            <img src="/img/profile-img.jpg" alt="Profile" class="rounded-circle mb-3">
+                        </div>
+                        <div th:unless="${userEditDto.img == null}">
+                            <img th:src="'/'+${userEditDto.img.imgPath}" alt="Profile" class="rounded-circle mb-3">
+                        </div>
+
                         <h2 th:text="${session.loginUser}">닉네임</h2>
                     </div>
                 </div>
@@ -81,13 +87,20 @@
                             <!-- Start Overview-->
                             <div class="tab-pane fade show active profile-overview">
 
-                                <form action="/user/editInfo" class="needs-validation" method="post" th:object="${userEditDto}" novalidate>
+                                <form action="/user/editInfo" class="needs-validation" method="post" enctype="multipart/form-data" th:object="${userEditDto}" novalidate>
                                     <div class="row mb-3">
                                         <label class="col-md-4 col-lg-3 col-form-label">프로필 이미지</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <img src="/img/profile-img.jpg" alt="Profile">
+                                            <div th:if="${userEditDto.img == null}">
+                                                <img src="/img/profile-img.jpg" alt="Profile" style="width: 200px; height: 200px;">
+                                            </div>
+                                            <div th:unless="${userEditDto.img == null}">
+                                                <img th:src="'/'+${userEditDto.img.imgPath}" alt="Profile" style="width: 200px; height: 200px;">
+                                            </div>
+
                                             <div class="pt-2">
-                                                <a href="#" class="btn btn-primary btn-sm" title="이미지 변경"><i class="bi bi-upload"></i></a>
+                                                <label for="imgFile" class="btn btn-primary btn-sm bi bi-upload"></label>
+                                                <input id="imgFile" name="imgFile" title="이미지 변경" type="file" accept="image/*" style="display : none;">
                                                 <a href="#" class="btn btn-danger btn-sm" title="이미지 삭제"><i class="bi bi-trash"></i></a>
                                             </div>
                                         </div>
@@ -133,6 +146,19 @@
 
 <footer th:insert="/layout/footer.html"></footer>
 <script src="/js/validation.js"></script>
+<script>
+        const reader = new FileReader();
+
+        reader.onload = (readerEvent) => {
+            document.querySelector("#preview").setAttribute("src", readerEvent.target.result);
+        };
+
+        document.querySelector("#imgFile").addEventListener("change", (changeEvent) => {
+
+            const imgFile = changeEvent.target.files[0];
+            reader.readAsDataURL(imgFile);
+        })
+    </script>
 
 </body>
 </html>

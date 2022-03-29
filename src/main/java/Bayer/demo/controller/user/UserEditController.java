@@ -1,10 +1,12 @@
 package Bayer.demo.controller.user;
 
+import Bayer.demo.config.ImgSet;
 import Bayer.demo.domain.user.User;
 import Bayer.demo.dto.user.UserEditDto;
 import Bayer.demo.dto.user.UserPasswordEditDto;
 import Bayer.demo.repository.UserRepository;
 import Bayer.demo.service.user.UserEditService;
+import Bayer.demo.service.user.UserProfileImgService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -13,6 +15,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -25,6 +29,8 @@ public class UserEditController {
 
     private final UserEditService userEditService;
     private final UserRepository userRepository;
+    private final UserProfileImgService userProfileImgService;
+    private final ImgSet imgSet;
 
 
     @GetMapping("/profile")
@@ -44,8 +50,10 @@ public class UserEditController {
     }
 
     @PostMapping("/editInfo")
-    public String editProfile(@Valid UserEditDto userEditDto, HttpSession session, BindingResult result) {
+    public String editProfile(@Valid UserEditDto userEditDto, @RequestParam(value = "imgFile", required = false) MultipartFile file, HttpSession session, BindingResult result) {
         String nickname;
+        User loginUser = userRepository.findByNickname(session.getAttribute("loginUser").toString()).orElse(null);
+        if (!file.isEmpty()) userProfileImgService.saveImg(imgSet.ProfileImgUpload(file, loginUser));
         try{
             nickname = userEditService.editUserInfo(session.getAttribute("loginUser").toString(), userEditDto);
         } catch (IllegalStateException e){
@@ -57,8 +65,10 @@ public class UserEditController {
     }
 
     @GetMapping("/editPassword")
-    public String editPassword(UserPasswordEditDto userPasswordEditDto, HttpSession session) {
+    public String editPassword(UserPasswordEditDto userPasswordEditDto, Model model, HttpSession session) {
         if (session.getAttribute("loginUser") == null) return "redirect:/user/login";
+        User loginUser = userRepository.findByNickname(session.getAttribute("loginUser").toString()).orElse(null);
+        model.addAttribute("userEditDto", loginUser);
         return "/user/user_password";
     }
 

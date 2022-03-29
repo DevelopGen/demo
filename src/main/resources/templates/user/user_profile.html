@@ -49,7 +49,13 @@
         <div class="card">
           <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
-            <img src="/img/profile-img.jpg" alt="Profile" class="rounded-circle mb-3">
+            <div th:if="${userEditDto.img == null}">
+              <img src="/img/profile-img.jpg" alt="Profile" class="rounded-circle mb-3">
+            </div>
+            <div th:unless="${userEditDto.img == null}">
+              <img th:src="'/'+${userEditDto.img.imgPath}" alt="Profile" class="rounded-circle mb-3">
+            </div>
+
             <h2 th:text="${session.loginUser}">닉네임</h2>
           </div>
         </div>
@@ -99,7 +105,7 @@
 
                 <div class="row">
                   <div class="col-lg-3 col-md-4 label">내 게시글</div>
-                  <div class="col-lg-9 col-md-8">게시글 수</div>
+                  <a class="col-lg-9 col-md-8 text-black text-decoration-none" th:text="${userEditDto.getBoards().size()} +개">게시글 수</a>
                 </div>
 
               </div><!-- End Overview-->
